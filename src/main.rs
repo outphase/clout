@@ -25,7 +25,7 @@ fn main() {
                     "-r" => clout::project::release(),
                     "-d" => clout::project::debug(),
                     _ => {
-                        println!("invalid argument, building debug.");
+                        println!(" invalid argument, building debug.");
                         clout::project::debug();
                     }
                 }
@@ -38,9 +38,9 @@ fn main() {
                 match spec.trim() {
                     "-r" => clout::project::release(),
                     "-d" => clout::project::debug(),
-                    "-s" => println!("Running older version."),
+                    "-s" => println!(" ! Running older version. !"),
                     _ => {
-                        println!("invalid argument, running debug.");
+                        println!(" invalid argument, running debug.");
                         clout::project::debug();
                     }
                 }

@@ -20,21 +20,35 @@ pub mod project {
     pub fn debug() {
         let name = current_dir_name();
         println!(" -- Compiling {name} with debug information.\n");
-        ps_command(
+        let output = ps_command(
             format!("clang++ --debug ../main.cpp -o {name}.exe").trim(),
             "./build",
-        )
-        .expect("Could not build debug project");
+        );
+        if let Ok(output) = output {
+            println!(
+                "{}",
+                String::from_utf8(output.stdout).expect("Could not parse stdout")
+            );
+        } else {
+            println!(" Could not build {name}");
+        };
     }
 
     pub fn release() {
         let name = current_dir_name();
         println!(" -- Compiling {name}.\n");
-        ps_command(
+        let output = ps_command(
             format!("clang++ ../main.cpp -o {name}.exe").trim(),
             "./build",
-        )
-        .expect("Could not build project");
+        );
+        if let Ok(output) = output {
+            println!(
+                "{}",
+                String::from_utf8(output.stdout).expect("Could not parse stdout")
+            );
+        } else {
+            println!(" Could not build {name}");
+        };
     }
 
     pub fn run() {
