@@ -1,6 +1,5 @@
 use clout::{self, text};
-use core::panic;
-use std::{self, env, process::Command};
+use std::{self, env};
 
 fn main() {
     let command = env::args()
@@ -20,13 +19,29 @@ fn main() {
                     "-r" => clout::project::release(),
                     "-d" => clout::project::debug(),
                     _ => {
-                        println!("Invalid argument, building debug.");
+                        println!("invalid argument, building debug.");
                         clout::project::debug();
                     }
                 }
             } else {
                 clout::project::debug();
             }
+        }
+        "run" => {
+            if let Some(r) = spec {
+                match r.trim() {
+                    "-r" => clout::project::release(),
+                    "-d" => clout::project::debug(),
+                    "-s" => println!("Running older version."),
+                    _ => {
+                        println!("invalid argument, running debug.");
+                        clout::project::debug();
+                    }
+                }
+            } else {
+                clout::project::debug();
+            }
+            clout::project::run();
         }
         "--help" => println!("{}", text::HELP),
         _ => {
@@ -35,11 +50,4 @@ fn main() {
             );
         }
     }
-
-    let output = Command::new("powershell")
-        .args(["/C", "echo Hello"])
-        .output()
-        .expect("Could not execute command");
-
-    println!("{}", String::from_utf8(output.stdout).unwrap());
 }
