@@ -1,21 +1,27 @@
 use clout::{self, text};
-use std::{self, env};
+use std::{self, env, process};
 
 fn main() {
-    let command = env::args()
-        .nth(1)
-        .expect(" Please enter a command.\n Type clout --help for a list of commands.");
+    let command = env::args().nth(1).unwrap_or_else(|| {
+        println!(" Please enter a command.\n Type clout --help for a list of commands.");
+        process::exit(1);
+    });
 
     let spec = env::args().nth(2);
 
+    println!("\n||<><>||  Clout  ||<><>||");
+
     match command.trim() {
         "new" => {
-            let spec = spec.expect("Please specify a project name");
-            clout::project::new(spec.trim());
+            if let Some(spec) = spec {
+                clout::project::new(spec.trim());
+            } else {
+                println!(" Please Provide a name for your project\n -> clout new <name>")
+            }
         }
         "build" => {
-            if let Some(r) = spec {
-                match r.trim() {
+            if let Some(spec) = spec {
+                match spec.trim() {
                     "-r" => clout::project::release(),
                     "-d" => clout::project::debug(),
                     _ => {
@@ -28,8 +34,8 @@ fn main() {
             }
         }
         "run" => {
-            if let Some(r) = spec {
-                match r.trim() {
+            if let Some(spec) = spec {
+                match spec.trim() {
                     "-r" => clout::project::release(),
                     "-d" => clout::project::debug(),
                     "-s" => println!("Running older version."),
@@ -50,4 +56,5 @@ fn main() {
             );
         }
     }
+    println!();
 }

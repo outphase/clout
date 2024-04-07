@@ -5,6 +5,7 @@ pub mod project {
     use std::{
         fs, io,
         path::Path,
+        process,
         process::{Command, Output},
     };
 
@@ -12,10 +13,13 @@ pub mod project {
         let _dir = fs::create_dir(&name);
         let _build_dir = fs::create_dir(format!("./{}/build", &name));
         let _file = fs::write(format!("./{}/main.cpp", name).trim(), text::MAIN_CPP);
+
+        println!(" -- Created project {name}");
     }
 
     pub fn debug() {
         let name = current_dir_name();
+        println!(" -- Compiling {name} with debug information.\n");
         ps_command(
             format!("clang++ --debug ../main.cpp -o {name}.exe").trim(),
             "./build",
@@ -25,20 +29,26 @@ pub mod project {
 
     pub fn release() {
         let name = current_dir_name();
-        let output = ps_command(
+        println!(" -- Compiling {name}.\n");
+        ps_command(
             format!("clang++ ../main.cpp -o {name}.exe").trim(),
             "./build",
         )
         .expect("Could not build project");
-        println!(
-            "{}",
-            String::from_utf8(output.stdout).expect("Could not parse stdout")
-        );
     }
 
     pub fn run() {
         let name = current_dir_name();
-        ps_command(format!("./build/{name}.exe").trim(), "").expect("Could not run build");
+        println!("    ||<><><><>|| Running {name}.exe ||<><><><>||\n");
+        let output = ps_command(format!("./build/{name}.exe").trim(), "");
+        if let Ok(output) = output {
+            println!(
+                "{}",
+                String::from_utf8(output.stdout).expect("Could not parse stdout")
+            );
+        } else {
+            println!(" Could not run {name}.exe\n Try building the project\n -> clout build")
+        }
     }
 
     fn ps_command(command: &str, dir: &str) -> Result<Output, io::Error> {
@@ -49,7 +59,12 @@ pub mod project {
     }
 
     fn current_dir_name() -> String {
-        assert!(Path::new("./main.cpp").exists());
+        if !Path::new("./main.cpp").exists() {
+            println!(
+                "||<><>|| WARNING ||<><>||\n - main.cpp not found. Is this a project directory?\n"
+            );
+            process::exit(1);
+        }
         let dir = std::env::current_dir().unwrap();
         dir.to_str()
             .unwrap()
