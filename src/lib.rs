@@ -25,7 +25,7 @@ pub mod project {
             "./build",
         );
         if let Ok(output) = output {
-            println!(
+            print!(
                 "{}",
                 String::from_utf8(output.stdout).expect("Could not parse stdout")
             );
@@ -42,7 +42,7 @@ pub mod project {
             "./build",
         );
         if let Ok(output) = output {
-            println!(
+            print!(
                 "{}",
                 String::from_utf8(output.stdout).expect("Could not parse stdout")
             );
@@ -53,15 +53,18 @@ pub mod project {
 
     pub fn run() {
         let name = current_dir_name();
-        println!("    ||<><><><>|| Running {name}.exe ||<><><><>||\n");
-        let output = ps_command(format!("./build/{name}.exe").trim(), "");
-        if let Ok(output) = output {
-            println!(
+        println!("    ||<><><><>|| Running {name}.exe \n");
+        let mut exe = Command::new(format!("./build/{name}.exe"));
+        let thread = exe.spawn();
+        // let output = exe.output();
+        // let output = ps_command(format!("./build/{name}.exe").trim(), "");
+        if let Ok(output) = thread.unwrap().wait_with_output() {
+            print!(
                 "{}",
-                String::from_utf8(output.stdout).expect("Could not parse stdout")
+                String::from_utf8(output.stdout).expect("could not parse stdout")
             );
         } else {
-            println!(" Could not run {name}.exe\n Try building the project\n -> clout build")
+            println!(" could not run {name}.exe\n try building the project\n -> clout build")
         }
     }
 
