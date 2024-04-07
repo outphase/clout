@@ -14,12 +14,12 @@ pub mod project {
         let _build_dir = fs::create_dir(format!("./{}/build", &name));
         let _file = fs::write(format!("./{}/main.cpp", name).trim(), text::MAIN_CPP);
 
-        println!(" -- Created project {name}");
+        println!("||<><>|| Created project {name}");
     }
 
     pub fn debug() {
         let name = current_dir_name();
-        println!(" -- Compiling {name} with debug information.\n");
+        println!("||<><>|| Compiling {name} with debug information.\n");
         let output = ps_command(
             format!("clang++ --debug ../main.cpp -o {name}.exe").trim(),
             "./build",
@@ -27,16 +27,16 @@ pub mod project {
         if let Ok(output) = output {
             print!(
                 "{}",
-                String::from_utf8(output.stdout).expect("Could not parse stdout")
+                String::from_utf8(output.stdout).expect("||** Could not parse stdout")
             );
         } else {
-            println!(" Could not build {name}");
+            println!("||** WARNING\n||** Could not build {name}");
         };
     }
 
     pub fn release() {
         let name = current_dir_name();
-        println!(" -- Compiling {name}.\n");
+        println!("||<><>|| Compiling {name}.\n");
         let output = ps_command(
             format!("clang++ ../main.cpp -o {name}.exe").trim(),
             "./build",
@@ -47,13 +47,17 @@ pub mod project {
                 String::from_utf8(output.stdout).expect("Could not parse stdout")
             );
         } else {
-            println!(" Could not build {name}");
+            println!("||** WARNING\n||** Could not build {name}");
         };
     }
 
     pub fn run() {
         let name = current_dir_name();
-        println!("    ||<><><><>|| Running {name}.exe \n");
+        println!(
+            "\
+||--------||-------- 
+||<><><><>|| Running {name}.exe \n"
+        );
         let mut exe = Command::new(format!("./build/{name}.exe"));
         let thread = exe.spawn();
         // let output = exe.output();
@@ -64,7 +68,7 @@ pub mod project {
                 String::from_utf8(output.stdout).expect("could not parse stdout")
             );
         } else {
-            println!(" could not run {name}.exe\n try building the project\n -> clout build")
+            println!("||** WARNING\n||** Could not run {name}.exe\n try building the project\n -> clout build")
         }
     }
 
@@ -77,9 +81,7 @@ pub mod project {
 
     fn current_dir_name() -> String {
         if !Path::new("./main.cpp").exists() {
-            println!(
-                "||<><>|| WARNING ||<><>||\n - main.cpp not found. Is this a project directory?\n"
-            );
+            println!("||** WARNING\n||** main.cpp not found. Is this a project directory?\n");
             process::exit(1);
         }
         let dir = std::env::current_dir().unwrap();

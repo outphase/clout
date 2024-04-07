@@ -4,7 +4,7 @@ pub const MAIN_CPP: &str = "\
 int main(){
     std::cout << \"Hello, World!\";
     return 0;
-}
+}\
 ";
 
 pub const HELP: &str = "
@@ -37,5 +37,18 @@ pub const HELP: &str = "
 ||                   || -s -> Skip build  ||
 ||-------------------||-------------------||
 ||                                        ||
-||<><><><><><><><><><><><><><><><><><><><>||
+||<><><><><><><><><><><><><><><><><><><><>||\
+";
+
+pub const TITLE: &str = "\
+||----||--------
+||<><>|| Clout
+||----||--------\
+";
+
+pub const WELCOME: &str = "\
+||----||--------
+||<><>|| WELCOME TO CLOUT
+||----||--------
+||<><>|| Please type `clout --help` for a list of commands\
 ";
