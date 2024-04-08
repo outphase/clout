@@ -13,7 +13,7 @@ pub mod project {
         let _build_dir = fs::create_dir(format!("./{}/build", &name));
         let _file = fs::write(format!("./{}/main.cpp", name).trim(), text::MAIN_CPP);
 
-        println!("||<><>|| Created project {name}");
+        println!("||<><>|| Created project `{name}`");
     }
 
     pub fn debug() {
@@ -22,25 +22,22 @@ pub mod project {
         let command = format!("clang++ --debug {file_names} -o {name}.exe");
         let output = ps_command(&command.trim(), "./build");
 
-        println!("AAAAAAAAAAAAAAAAAAAA {}", command);
         if let Ok(output) = output {
             print!(
                 "{}",
                 String::from_utf8(output.stdout).expect("||** Could not parse stdout")
             );
         } else {
-            println!("||** WARNING\n||** Could not build {name}");
+            println!("||** WARNING\n||** Could not build `{name}`");
         };
-        println!("||<><>|| Compiling {name} with debug information.\n");
+        println!("||<><>|| Compiling `{name}` with debug information.\n");
     }
 
     pub fn release() {
         let name = current_dir_name();
         let file_names = get_compiler_file_names();
-        let output = ps_command(
-            format!("clang++ {file_names} -o {name}.exe").trim(),
-            "./build",
-        );
+        let command = format!("clang++ {file_names} -o {name}.exe");
+        let output = ps_command(&command.trim(), "./build");
 
         if let Ok(output) = output {
             print!(
@@ -48,9 +45,9 @@ pub mod project {
                 String::from_utf8(output.stdout).expect("Could not parse stdout")
             );
         } else {
-            println!("||** WARNING\n||** Could not build {name}");
+            println!("||** WARNING\n||** Could not build `{name}`");
         };
-        println!("||<><>|| Compiling {name}.\n");
+        println!("||<><>|| Compiling `{name}`.\n");
     }
 
     pub fn run() {
@@ -58,7 +55,7 @@ pub mod project {
         println!(
             "\
 ||--------||-------- 
-||<><><><>|| Running {name}.exe \n"
+||<><><><>|| Running `{name}.exe` \n"
         );
         let mut exe = Command::new(format!("./build/{name}.exe"));
         let thread = exe.spawn();
@@ -68,7 +65,7 @@ pub mod project {
                 String::from_utf8(output.stdout).expect("could not parse stdout")
             );
         } else {
-            println!("||** WARNING\n||** Could not run {name}.exe\n try building the project\n -> clout build")
+            println!("||** WARNING\n||** Could not run `{name}.exe`\n try building the project\n -> clout build")
         }
     }
 
