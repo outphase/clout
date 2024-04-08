@@ -19,11 +19,16 @@ pub const HELP: &str = "
 ||                   || in a new <name>   ||
 ||                   || directory         ||
 ||-------------------||-------------------||
+||        add <name> || Create a .cpp     ||
+||                   || file with header  ||
+||                   || in a the project  ||
+||                   || directory         ||
+||-------------------||-------------------||
 ||      build <mode> || Generate a Release||
 ||                   || build of your     ||
 ||                   || project           ||
 ||                   ||-------------------||
-||                   || Modes:            ||
+||                   || Modes:            ||;
 ||                   || -r -> Release     ||
 ||                   || -d -> Debug       ||
 ||-------------------||-------------------||

@@ -8,6 +8,14 @@ pub fn run(command: String, spec: Option<String>) -> Result<(), Box<dyn std::err
     println!("{}", text::TITLE);
 
     match command.trim() {
+        "add" => {
+            if let Some(spec) = spec {
+                project::files::new_with_header(spec.trim());
+            } else {
+                println!("||** WARNING\n||** Please Provide a name for the new file\n -> clout add <name>")
+            }
+        }
+
         "new" => {
             if let Some(spec) = spec {
                 project::new(spec.trim());
@@ -15,6 +23,7 @@ pub fn run(command: String, spec: Option<String>) -> Result<(), Box<dyn std::err
                 println!("||** WARNING\n||** Please Provide a name for your project\n -> clout new <name>")
             }
         }
+
         "build" => {
             if let Some(spec) = spec {
                 match spec.trim() {
@@ -29,6 +38,7 @@ pub fn run(command: String, spec: Option<String>) -> Result<(), Box<dyn std::err
                 project::build::debug();
             }
         }
+
         "run" => {
             if let Some(spec) = spec {
                 match spec.trim() {
@@ -45,7 +55,9 @@ pub fn run(command: String, spec: Option<String>) -> Result<(), Box<dyn std::err
             }
             project::run();
         }
+
         "--help" => println!("{}", text::HELP),
+
         _ => {
             println!(
                 "\
