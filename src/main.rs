@@ -1,4 +1,4 @@
-use clout::{self, text};
+use clout::{self, project, text};
 use std::{self, env, process};
 
 fn main() {
@@ -22,32 +22,32 @@ fn main() {
         "build" => {
             if let Some(spec) = spec {
                 match spec.trim() {
-                    "-r" => clout::project::release(),
-                    "-d" => clout::project::debug(),
+                    "-r" => project::build::release(),
+                    "-d" => project::build::debug(),
                     _ => {
                         println!("||** invalid argument, building debug.");
-                        clout::project::debug();
+                        project::build::debug();
                     }
                 }
             } else {
-                clout::project::debug();
+                project::build::debug();
             }
         }
         "run" => {
             if let Some(spec) = spec {
                 match spec.trim() {
-                    "-r" => clout::project::release(),
-                    "-d" => clout::project::debug(),
+                    "-r" => project::build::release(),
+                    "-d" => project::build::debug(),
                     "-s" => println!("||!! Running older version. "),
                     _ => {
                         println!("||** invalid argument, running debug.");
-                        clout::project::debug();
+                        project::build::debug();
                     }
                 }
             } else {
-                clout::project::debug();
+                project::build::debug();
             }
-            clout::project::run();
+            project::run();
         }
         "--help" => println!("{}", text::HELP),
         _ => {
