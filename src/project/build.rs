@@ -10,7 +10,7 @@ pub enum BuildMode {
     Release,
 }
 
-pub fn build(mode: BuildMode) {
+pub fn build(mode: BuildMode) -> std::io::Result<()> {
     let dbg = match mode {
         BuildMode::Debug => "--debug",
         BuildMode::Release => "",
@@ -54,6 +54,7 @@ pub fn build(mode: BuildMode) {
             return Err(e);
         }
     };
+    Ok(())
 }
 
 fn get_paths_at(path: &str) -> Vec<PathBuf> {
@@ -103,9 +104,9 @@ fn get_project_files() -> Vec<PathBuf> {
     files
 }
 
-fn get_compiler_file_names() -> Vec<String> {
+fn get_project_file_names() -> Vec<String> {
     let mut file_names = Vec::new();
-    for file in get_compiler_files() {
+    for file in get_project_files() {
         let mut file_name = String::new();
         file_name.push_str("../");
         file_name.push_str(&file.file_name().unwrap().to_string_lossy());

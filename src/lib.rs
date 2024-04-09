@@ -26,11 +26,11 @@ pub fn run(command: String, spec: Option<String>) -> Result<(), Box<dyn std::err
         }
 
         "build" => {
-            if let Some(spec) = spec {
-                choose_build(spec.trim());
+            let _ = if let Some(spec) = spec {
+                choose_build(spec.trim())
             } else {
                 project::build(BuildMode::Debug)
-            }
+            };
         }
 
         "run" => {
@@ -43,7 +43,6 @@ pub fn run(command: String, spec: Option<String>) -> Result<(), Box<dyn std::err
             if let Ok(_) = build_result {
                 project::run();
             }
-            project::run();
         }
 
         "--help" => println!("{}", text::HELP),
@@ -62,13 +61,13 @@ pub fn run(command: String, spec: Option<String>) -> Result<(), Box<dyn std::err
     Ok(())
 }
 
-fn choose_build(spec: &str) {
+fn choose_build(spec: &str) -> std::io::Result<()> {
     match spec {
         "-r" => project::build(BuildMode::Release),
         "-d" => project::build(BuildMode::Debug),
         _ => {
             println!("||** invalid argument, building debug.");
-            project::build(BuildMode::Debug);
+            project::build(BuildMode::Debug)
         }
     }
 }
