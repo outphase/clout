@@ -34,10 +34,14 @@ pub fn run(command: String, spec: Option<String>) -> Result<(), Box<dyn std::err
         }
 
         "run" => {
-            if let Some(spec) = spec {
-                choose_build(spec.trim());
+            let build_result = if let Some(spec) = spec {
+                choose_build(spec.trim())
             } else {
                 project::build(BuildMode::Debug)
+            };
+
+            if let Ok(_) = build_result {
+                project::run();
             }
             project::run();
         }
