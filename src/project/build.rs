@@ -19,7 +19,6 @@ pub fn build(mode: BuildMode) -> std::io::Result<()> {
     let name = format!("{name}.exe");
     println!("||<><>|| Compiling `{name}` with debug information.\n");
 
-    dbg!(get_project_file_names());
     let mut exe = Command::new("clang++");
     exe.current_dir("./build")
         .arg(dbg)
@@ -109,7 +108,7 @@ fn get_project_file_names() -> Vec<String> {
     for file in get_project_files() {
         let mut file_name = String::new();
         file_name.push_str("../");
-        file_name.push_str(&file.file_name().unwrap().to_string_lossy());
+        file_name.push_str(&file.to_string_lossy());
         file_names.push(file_name);
     }
     file_names
