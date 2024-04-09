@@ -43,13 +43,6 @@ pub fn run() {
     }
 }
 
-// fn ps_command(command: &str, dir: &str) -> Result<Output, io::Error> {
-//     Command::new("powershell")
-//         .current_dir(format!("./{}", dir))
-//         .args(["/C", command])
-//         .output()
-// }
-
 fn check_project_dir() {
     if !Path::new("./main.cpp").exists() {
         println!("||** WARNING\n||** main.cpp not found. Is this a project directory?\n");

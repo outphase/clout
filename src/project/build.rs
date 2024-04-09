@@ -16,6 +16,7 @@ pub fn build(mode: BuildMode) {
         BuildMode::Release => "",
     };
     let name = project::current_dir_name();
+    let name = format!("{name}.exe");
     let file_names = get_compiler_file_names();
     println!("||<><>|| Compiling `{name}` with debug information.\n");
 
@@ -23,8 +24,8 @@ pub fn build(mode: BuildMode) {
     exe.current_dir("./build")
         .arg(dbg)
         .args(file_names)
-        // .arg("-v")
-        .arg(format!("-o {name}.exe").trim());
+        .arg("-o")
+        .arg(name.trim());
 
     let thread = exe.spawn();
     if thread.is_err() {
