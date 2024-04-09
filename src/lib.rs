@@ -2,6 +2,7 @@ pub mod project;
 mod tests;
 pub mod text;
 
+use crate::project::build::BuildMode;
 use std;
 
 pub fn run(command: String, spec: Option<String>) -> Result<(), Box<dyn std::error::Error>> {
@@ -26,32 +27,17 @@ pub fn run(command: String, spec: Option<String>) -> Result<(), Box<dyn std::err
 
         "build" => {
             if let Some(spec) = spec {
-                match spec.trim() {
-                    "-r" => project::build::release(),
-                    "-d" => project::build::debug(),
-                    _ => {
-                        println!("||** invalid argument, building debug.");
-                        project::build::debug();
-                    }
-                }
+                choose_build(spec.trim());
             } else {
-                project::build::debug();
+                project::build(BuildMode::Debug)
             }
         }
 
         "run" => {
             if let Some(spec) = spec {
-                match spec.trim() {
-                    "-r" => project::build::release(),
-                    "-d" => project::build::debug(),
-                    "-s" => println!("||!! Running older version. "),
-                    _ => {
-                        println!("||** invalid argument, running debug.");
-                        project::build::debug();
-                    }
-                }
+                choose_build(spec.trim());
             } else {
-                project::build::debug();
+                project::build(BuildMode::Debug)
             }
             project::run();
         }
@@ -70,4 +56,15 @@ pub fn run(command: String, spec: Option<String>) -> Result<(), Box<dyn std::err
         }
     }
     Ok(())
+}
+
+fn choose_build(spec: &str) {
+    match spec {
+        "-r" => project::build(BuildMode::Release),
+        "-d" => project::build(BuildMode::Debug),
+        _ => {
+            println!("||** invalid argument, building debug.");
+            project::build(BuildMode::Debug);
+        }
+    }
 }

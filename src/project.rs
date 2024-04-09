@@ -1,4 +1,5 @@
 use crate::text;
+pub use build::{build, BuildMode};
 pub use std::{
     fs, io,
     path::{Path, PathBuf},
@@ -25,22 +26,29 @@ pub fn run() {
     );
     let mut exe = Command::new(format!("./build/{name}.exe"));
     let thread = exe.spawn();
-    if let Ok(output) = thread.unwrap().wait_with_output() {
-        print!(
-            "{}",
-            String::from_utf8(output.stdout).expect("could not parse stdout")
-        );
-    } else {
-        println!("||** WARNING\n||** Could not run `{name}.exe`\n try building the project\n -> clout build")
+    match thread {
+        Ok(thread) => {
+            if let Ok(output) = thread.wait_with_output() {
+                print!(
+                    "{}",
+                    String::from_utf8(output.stdout).expect("could not parse stdout")
+                );
+            } else {
+                println!("||** WARNING\n||** Could not run `{name}.exe`\n try building the project\n -> clout build")
+            }
+        }
+        Err(_) => {
+            println!("||** WARNING\n||** Could not run `{name}.exe`\n try building the project\n -> clout build")
+        }
     }
 }
 
-fn ps_command(command: &str, dir: &str) -> Result<Output, io::Error> {
-    Command::new("powershell")
-        .current_dir(format!("./{}", dir))
-        .args(["/C", command])
-        .output()
-}
+// fn ps_command(command: &str, dir: &str) -> Result<Output, io::Error> {
+//     Command::new("powershell")
+//         .current_dir(format!("./{}", dir))
+//         .args(["/C", command])
+//         .output()
+// }
 
 fn check_project_dir() {
     if !Path::new("./main.cpp").exists() {
