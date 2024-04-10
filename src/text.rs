@@ -4,7 +4,7 @@ pub const MAIN_CPP: &str = "\
 int main(){
     std::cout << \"Hello, World!\";
     return 0;
-}\
+}
 ";
 
 pub const HELP: &str = "
@@ -45,13 +45,13 @@ pub const HELP: &str = "
 ||<><><><><><><><><><><><><><><><><><><><>||\
 ";
 
-pub const TITLE: &str = "\
+pub const TITLE: &str = "
 ||----||--------
 ||<><>|| Clout
 ||----||--------\
 ";
 
-pub const WELCOME: &str = "\
+pub const WELCOME: &str = "
 ||----||--------
 ||<><>|| WELCOME TO CLOUT
 ||----||--------

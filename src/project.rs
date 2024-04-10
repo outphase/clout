@@ -20,7 +20,7 @@ pub fn new(name: &str) {
 pub fn run() {
     let name = current_dir_name();
     println!(
-        "\
+        "
 ||--------||-------- 
 ||<><><><>|| Running `{name}.exe` \n"
     );
@@ -41,6 +41,11 @@ pub fn run() {
             println!("||** WARNING\n||** Could not run `{name}.exe`\n try building the project\n -> clout build")
         }
     }
+    println!(
+        "
+||<><><><>||
+||--------||--------"
+    );
 }
 
 fn check_project_dir() {
