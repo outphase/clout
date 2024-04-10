@@ -10,5 +10,5 @@ fn main() {
 
     let spec = env::args().nth(2);
 
-    let _result = run(command, spec);
+    run(command, spec);
 }

@@ -5,7 +5,7 @@ pub mod text;
 use crate::project::build::BuildMode;
 use std;
 
-pub fn run(command: String, spec: Option<String>) -> Result<(), Box<dyn std::error::Error>> {
+pub fn run(command: String, spec: Option<String>) {
     println!("{}", text::TITLE);
 
     match command.trim() {
@@ -58,7 +58,6 @@ pub fn run(command: String, spec: Option<String>) -> Result<(), Box<dyn std::err
             );
         }
     }
-    Ok(())
 }
 
 fn choose_build(spec: &str) -> std::io::Result<()> {
