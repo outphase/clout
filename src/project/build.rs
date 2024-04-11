@@ -15,7 +15,7 @@ pub fn build(mode: BuildMode) -> std::io::Result<()> {
         BuildMode::Release => "",
     };
     let name = project::current_dir_name();
-    let name = format!("/{name}.exe");
+    let name = format!("./{name}.exe");
     let files = get_project_file_names();
     let dirs = get_project_dir_names();
     println!("||<><>|| Compiling `{name}` with debug information.");

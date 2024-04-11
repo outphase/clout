@@ -10,6 +10,10 @@ pub mod build;
 pub mod files;
 
 pub fn new(name: &str) {
+    if Path::exists(Path::new(name)) {
+        println!("||** Directory `{name}` already exists");
+        return;
+    }
     let _dir = fs::create_dir(&name);
     let _build_dir = fs::create_dir(format!("./{}/build", &name));
     let _file = fs::write(format!("./{}/main.cpp", name).trim(), text::MAIN_CPP);
