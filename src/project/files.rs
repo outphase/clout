@@ -1,4 +1,4 @@
-use std::fs;
+use std::{fs, path::Path};
 
 use rand::Rng;
 
@@ -6,6 +6,10 @@ use crate::project;
 
 pub fn new_with_header(name: &str) {
     project::check_project_dir();
+    if Path::exists(Path::new(format!("{name}.h").trim())) {
+        println!("||** File `{name}.h` already exists");
+        return;
+    }
     let mut header_name: String = name.to_uppercase();
     header_name.push_str("_");
     header_name.push_str(format!("{}", rand::thread_rng().gen::<u16>()).trim());

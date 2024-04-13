@@ -58,6 +58,12 @@ pub fn run(command: String, spec: Option<String>) {
             );
         }
     }
+    println!(
+        "
+||<><>||
+||----||------------
+"
+    );
 }
 
 fn choose_build(spec: &str) -> std::io::Result<()> {
