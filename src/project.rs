@@ -21,14 +21,18 @@ pub fn new(name: &str) {
     println!("||<><>|| Created project `{name}`");
 }
 
-pub fn run() {
+pub fn run(mode: BuildMode) {
     let name = current_dir_name();
     println!(
         "
 ||----||------------ 
-||<><>|| Running `{name}.exe` \n"
+||<><>|| Running `{name}.exe`"
     );
-    let mut exe = Command::new(format!("./build/{name}.exe"));
+    let path = match mode {
+        BuildMode::Debug => format!("./build/{name}.exe"),
+        BuildMode::Release => format!("./build/release/{name}.exe"),
+    };
+    let mut exe = Command::new(path);
     let thread = exe.spawn();
     match thread {
         Ok(thread) => {

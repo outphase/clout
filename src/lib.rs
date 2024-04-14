@@ -34,14 +34,19 @@ pub fn run(command: String, spec: Option<String>) {
         }
 
         "run" => {
-            let build_result = if let Some(spec) = spec {
-                choose_build(spec.trim())
+            if let Some(spec) = spec {
+                if spec.trim() == "-s" {
+                    project::run(BuildMode::Debug);
+                } else {
+                    if let Ok(_) = choose_build(&spec) {
+                        project::run(match spec.trim() {
+                            "-r" => BuildMode::Release,
+                            _ => BuildMode::Debug,
+                        })
+                    }
+                }
             } else {
-                project::build(BuildMode::Debug)
-            };
-
-            if let Ok(_) = build_result {
-                project::run();
+                project::run(BuildMode::Debug);
             }
         }
 

@@ -1,6 +1,7 @@
 use crate::project;
 use std::{
-    path::PathBuf,
+    fs,
+    path::{Path, PathBuf},
     process::{self, Command},
 };
 
@@ -15,10 +16,20 @@ pub fn build(mode: BuildMode) -> std::io::Result<()> {
         BuildMode::Release => "",
     };
     let name = project::current_dir_name();
-    let name = format!("./{name}.exe");
+    let name = match mode {
+        BuildMode::Debug => format!("./{name}.exe"),
+        BuildMode::Release => {
+            if !Path::new("./build/release").exists() {
+                let _ = fs::create_dir("./build/release");
+            }
+            format!("./release/{name}.exe")
+        }
+    };
+    format!("./{name}.exe");
     let files = get_project_file_names();
     let dirs = get_project_dir_names();
     println!("||<><>|| Compiling `{name}` with debug information.");
+    println!("||<>");
     for res in dirs.iter() {
         println!("||<> Searching in `{}`", &res[1..]);
     }
@@ -26,6 +37,7 @@ pub fn build(mode: BuildMode) -> std::io::Result<()> {
     for res in files.iter() {
         println!("||<> Processing `{}`", &res[3..]);
     }
+    println!("||<>\n||<> Compiling...");
 
     let mut exe = Command::new("clang++");
     exe.current_dir("./build")
