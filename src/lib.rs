@@ -46,7 +46,11 @@ pub fn run(command: String, spec: Option<String>) {
                     }
                 }
             } else {
-                project::run(BuildMode::Debug);
+                if let Ok(_) = project::build(BuildMode::Debug) {
+                    project::run(BuildMode::Debug);
+                } else {
+                    println!("||** Could not build project, not running")
+                }
             }
         }
 

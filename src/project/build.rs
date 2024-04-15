@@ -41,6 +41,7 @@ pub fn build(mode: BuildMode) -> std::io::Result<()> {
 
     let mut exe = Command::new("clang++");
     exe.current_dir("./build")
+        .arg("-std=c++23")
         .arg(dbg)
         .args(files)
         .args(["-o", name.trim()]);
