@@ -7,6 +7,12 @@ int main(){
 }
 ";
 
+pub const CLANGD: &str = "\
+CompileFlags:
+    Add:
+        - \"-std=c++23\"
+";
+
 pub const HELP: &str = "
 ||<><><><><><><><><><><><><><><><><><><><>||
 ||  Clout - A simple C++ project utility  ||
