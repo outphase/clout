@@ -16,8 +16,8 @@ pub fn new(name: &str) {
     }
     let _dir = fs::create_dir(&name);
     let _build_dir = fs::create_dir(format!("./{}/build", &name));
-    let _cpp = fs::write(format!("./{}/main.cpp", name).trim(), text::MAIN_CPP);
-    let _clangd = fs::write(format!("./{}/.clangd", name), text::CLANGD);
+    let _cpp = fs::write(format!("./{}/main.cpp", name).trim(), text::files::MAIN_CPP);
+    let _clangd = fs::write(format!("./{}/.clangd", name), text::files::CLANGD);
 
     println!("||<><>|| Created project `{name}`");
 }

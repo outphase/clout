@@ -11,7 +11,7 @@ pub fn add_random() {
         println!("||** File `{name}` already exists");
         return;
     }
-    let _h = fs::write(format!("./{name}"), text::RANDH);
+    let _h = fs::write(format!("./{name}"), text::files::RANDH);
     println!("||<><>|| Created preset `{name}` in project directory")
 }
 

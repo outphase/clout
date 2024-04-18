@@ -4,7 +4,7 @@ use clout::{run, text};
 
 fn main() {
     let command = env::args().nth(1).unwrap_or_else(|| {
-        println!("{}", text::WELCOME);
+        println!("{}", text::console::WELCOME);
         process::exit(1);
     });
 

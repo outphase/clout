@@ -6,7 +6,7 @@ use crate::project::build::BuildMode;
 use std;
 
 pub fn run(command: String, spec: Option<String>) {
-    println!("{}", text::TITLE);
+    println!("{}", text::console::TITLE);
 
     match command.trim() {
         "add" => {
@@ -62,17 +62,10 @@ pub fn run(command: String, spec: Option<String>) {
             }
         }
 
-        "--help" => println!("{}", text::HELP),
+        "--help" => println!("{}", text::console::HELP),
 
         _ => {
-            println!(
-                "\
-||** WARNING
-||** Invalid Command.
-||--------------
-||** Please provide a valid command.
-||** Type clout `--help` for a list of commands."
-            );
+            println!("{}", text::console::INVALID_COMMAND);
         }
     }
     println!(

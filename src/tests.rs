@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use std::{fs, path::PathBuf};
+    use std::fs;
 
     #[test]
     fn path_name() {
