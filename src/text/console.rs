@@ -64,3 +64,8 @@ pub const INVALID_COMMAND: &str = "\
 ||** Please provide a valid command.
 ||** Type `clout --help` for a list of commands.\
 ";
+
+pub const ENDING: &str = "
+||<><>||
+||----||------------
+";
