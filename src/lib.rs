@@ -11,7 +11,15 @@ pub fn run(command: String, spec: Option<String>) {
     match command.trim() {
         "add" => {
             if let Some(spec) = spec {
-                project::files::new_with_header(spec.trim());
+                match spec.to_lowercase().trim() {
+                    "random.h" => project::files::add_random(),
+                    _ => {
+                        if spec.contains(".h") {
+                            project::files::add_header(spec.trim());
+                        }
+                        project::files::add_cpp_with_header(spec.trim());
+                    }
+                }
             } else {
                 println!("||** WARNING\n||** Please Provide a name for the new file\n -> clout add <name>")
             }
