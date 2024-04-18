@@ -13,9 +13,9 @@ pub fn run(command: String, spec: Option<String>) {
 
         "new" => command_new(spec),
 
-        "build" => command_build(spec),
-
         "run" => command_run(spec),
+
+        "build" => command_build(spec),
 
         "--help" => println!("{}", text::console::HELP),
 

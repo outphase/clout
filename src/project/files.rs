@@ -54,10 +54,10 @@ fn write_header_file(name: &str) {
             header_name, header_name,
         ),
     )
-    .expect("||*** Could not create file");
+    .expect("||*** Could not create .h file");
 }
 
 fn write_cpp_file(name: &str) {
     fs::write(format!("./{name}.cpp"), format!("#include \"{name}.h\""))
-        .expect("||*** Could not create file");
+        .expect("||*** Could not create .cpp file");
 }
