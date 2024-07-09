@@ -25,6 +25,7 @@ Here is a list of the commands. You can access this list by running the `clout -
 
 ### Flags
 
+|----|------------------------------------------------------------------------|
 | -d | On any command that builds the project -> build with debug information |
 | -r | On any command that builds the project -> build ready for release      |
 | -s | On `clout run` -> skip the building step                               |
@@ -33,5 +34,6 @@ Here is a list of the commands. You can access this list by running the `clout -
 
 If you type one of these special filenames when using the `clout add` command, you will create a preset file. You can find preset files [here]().
 
+|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | \<filename\>.h | Create Header file only. Will have preset text.                                                                                           |
 | random.h       | A usable, one file RNG library from [learncpp.com](https://www.learncpp.com/cpp-tutorial/introduction-to-random-number-generation/) |
