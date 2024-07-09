@@ -37,7 +37,7 @@ pub fn add(spec: &str) {
 
     match spec.trim() {
         "random.h" => add_preset_file("random.h", text::RANDH),
-        _ => eprintln!("Shouldn't have gotten to this point..."),
+        _ => {}
     }
 }
 
@@ -84,20 +84,8 @@ fn write_header_file(name: &str) {
     let mut header_name: String = name.to_uppercase();
     header_name.push_str("_");
     header_name.push_str(format!("{}", rand::thread_rng().gen::<u16>()).trim());
-    fs::write(
-        format!("./{name}.h"),
-        format!(
-            "\
-#ifndef {}
-#define {}
-
-//your code here
-
-#endif",
-            header_name, header_name,
-        ),
-    )
-    .expect("||*** Could not create .h file");
+    let h_file_content = text::ANYH.replace("ANYFILE_00000", &header_name);
+    fs::write(format!("./{name}.h"), h_file_content).expect("||*** Could not create .h file");
 }
 
 fn write_cpp_file(name: &str) {

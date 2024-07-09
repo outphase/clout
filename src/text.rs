@@ -2,6 +2,7 @@
 pub const CLANGD: &str = include_str!("../template files/.clangd");
 pub const MAIN_CPP: &str = include_str!("../template files/main.cpp");
 pub const RANDH: &str = include_str!("../template files/random.h");
+pub const ANYH: &str = include_str!("../template files/anyfile.h");
 
 // Console
 pub const HELP: &str = include_str!("./text/help.txt");
