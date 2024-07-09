@@ -5,7 +5,7 @@ Clout is an easy and simple C++ project manager, inspired by rust's [cargo](http
 
 ### Quick Start Guide
 
-1. Download `clout.exe` from the [installation page]() and add it to your `PATH`.
+1. Download `clout.exe` from the [release page](https://github.com/outphase/clout/releases) and add it to your `PATH`.
 
 2. Run the `clout new` command followed by the name of your new project.
 
@@ -27,11 +27,11 @@ Here is a list of the commands. You can access this list by running the `clout -
 |-------|------------------------------------------------------------------------|
 | -d    | On any command that builds the project -> build with debug information |
 | -r    | On any command that builds the project -> build ready for release      |
-| -s    | On `clout run` -> skip the building step                               |
+| -s    | On `clout run`                         -> skip the building step       |
 
 ### Special files
 
-If you type one of these special filenames when using the `clout add` command, you will create a preset file. You can find preset files [here]().
+If you type one of these special filenames when using the `clout add` command, you will create a copy of a preset file. You can find preset files [here](https://github.com/outphase/clout/tree/master/template-files).
 
 | Filename       |                                                                                                                                           |
 |----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
