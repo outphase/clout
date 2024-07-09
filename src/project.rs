@@ -8,6 +8,7 @@ pub use std::{
 
 pub mod build;
 pub mod files;
+pub use files::add;
 
 pub fn new(name: &str) {
     if Path::exists(Path::new(name)) {
@@ -16,13 +17,14 @@ pub fn new(name: &str) {
     }
     let _dir = fs::create_dir(&name);
     let _build_dir = fs::create_dir(format!("./{}/build", &name));
-    let _cpp = fs::write(format!("./{}/main.cpp", name).trim(), text::files::MAIN_CPP);
-    let _clangd = fs::write(format!("./{}/.clangd", name), text::files::CLANGD);
+    let _cpp = fs::write(format!("./{}/main.cpp", name).trim(), text::MAIN_CPP);
+    let _clangd = fs::write(format!("./{}/.clangd", name), text::CLANGD);
 
     println!("||<><>|| Created project `{name}`");
 }
 
 pub fn run(mode: BuildMode) {
+    files::is_in_project_dir();
     let name = current_dir_name();
     println!(
         "
@@ -52,20 +54,12 @@ pub fn run(mode: BuildMode) {
     }
 }
 
-fn check_project_dir() {
-    if !Path::new("./main.cpp").exists() {
-        println!("||** WARNING\n||** main.cpp not found. Is this a project directory?\n");
-        process::exit(1);
-    }
+pub fn dir_name(path: &str) -> &str {
+    path.split("\\").last().unwrap()
 }
 
 fn current_dir_name() -> String {
-    check_project_dir();
+    files::is_in_project_dir();
     let dir = std::env::current_dir().unwrap();
-    dir.to_str()
-        .unwrap()
-        .split("\\")
-        .last()
-        .unwrap()
-        .to_string()
+    dir_name(dir.to_str().expect("Could not convert path to string")).to_string()
 }

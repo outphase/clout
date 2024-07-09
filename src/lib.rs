@@ -1,90 +1,28 @@
 pub mod project;
-mod tests;
 pub mod text;
 
-use crate::project::build::BuildMode;
-use std;
+#[cfg(test)]
+mod tests {
+    use std::fs;
 
-pub fn run(command: String, spec: Option<String>) {
-    println!("{}", text::console::TITLE);
+    #[test]
+    fn path_name() {
+        let dir = std::env::current_dir().unwrap();
+        let name = &dir.to_str().unwrap().split("\\").last().unwrap();
 
-    match command.trim() {
-        "add" => command_add(spec),
-
-        "new" => command_new(spec),
-
-        "run" => command_run(spec),
-
-        "build" => command_build(spec),
-
-        "--help" => println!("{}", text::console::HELP),
-
-        _ => println!("{}", text::console::INVALID_COMMAND),
+        assert_eq!(name, &"clout");
     }
 
-    println!("{}", text::console::ENDING);
-}
+    #[test]
+    fn compiler_files() {
+        let files: Vec<_> = fs::read_dir("./test")
+            .unwrap()
+            .map(|res| res.map(|e| e.path()))
+            .filter(|x| x.is_ok())
+            .map(|x| x.unwrap())
+            .filter(|x| x.to_string_lossy().contains(".cpp"))
+            .collect();
 
-fn command_run(spec: Option<String>) {
-    if let Some(spec) = spec {
-        if spec.trim() == "-s" {
-            project::run(BuildMode::Debug);
-        } else {
-            if let Ok(_) = choose_build(&spec) {
-                project::run(match spec.trim() {
-                    "-r" => BuildMode::Release,
-                    _ => BuildMode::Debug,
-                })
-            }
-        }
-    } else {
-        if let Ok(_) = project::build(BuildMode::Debug) {
-            project::run(BuildMode::Debug);
-        } else {
-            println!("||** Could not build project, not running")
-        }
-    }
-}
-
-fn command_new(spec: Option<String>) {
-    if let Some(spec) = spec {
-        project::new(spec.trim());
-    } else {
-        println!("||** WARNING\n||** Please Provide a name for your project\n -> clout new <name>")
-    }
-}
-
-fn command_add(spec: Option<String>) {
-    if let Some(spec) = spec {
-        match spec.to_lowercase().trim() {
-            "random.h" => project::files::add_random(),
-            _ => {
-                if spec.contains(".h") {
-                    project::files::add_header(spec.trim());
-                }
-                project::files::add_cpp_with_header(spec.trim());
-            }
-        }
-    } else {
-        println!("||** WARNING\n||** Please Provide a name for the new file\n -> clout add <name>")
-    }
-}
-
-fn command_build(spec: Option<String>) {
-    let _ = if let Some(spec) = spec {
-        choose_build(spec.trim())
-    } else {
-        project::build(BuildMode::Debug)
-    };
-}
-
-fn choose_build(spec: &str) -> std::io::Result<()> {
-    match spec {
-        "-r" => project::build(BuildMode::Release),
-        "-d" => project::build(BuildMode::Debug),
-        _ => {
-            println!("||** invalid argument, building debug.");
-            project::build(BuildMode::Debug)
-        }
+        assert_eq!(files[0].file_name().unwrap().to_string_lossy(), "main.cpp")
     }
 }
