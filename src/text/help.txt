@@ -1,4 +1,3 @@
-pub const HELP: &str = "
 ||<><><><><><><><><><><><><><><><><><><><>||
 ||  Clout - A simple C++ project utility  ||
 ||<><><><><><><><><><><><><><><><><><><><>||
@@ -41,31 +40,4 @@ pub const HELP: &str = "
 ||                   || -s -> Skip build  ||
 ||-------------------||-------------------||
 ||                                        ||
-||<><><><><><><><><><><><><><><><><><><><>||\
-";
-
-pub const TITLE: &str = "
-||----||--------
-||<><>|| Clout
-||----||--------\
-";
-
-pub const WELCOME: &str = "
-||----||--------
-||<><>|| WELCOME TO CLOUT
-||----||--------
-||<><>|| Please type `clout --help` for a list of commands\
-";
-
-pub const INVALID_COMMAND: &str = "\
-||** WARNING
-||** Invalid Command.
-||--------------
-||** Please provide a valid command.
-||** Type `clout --help` for a list of commands.\
-";
-
-pub const ENDING: &str = "
-||<><>||
-||----||------------
-";
+||<><><><><><><><><><><><><><><><><><><><>||

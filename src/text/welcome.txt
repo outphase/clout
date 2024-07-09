@@ -1,0 +1,5 @@
+
+||----||--------
+||<><>|| WELCOME TO CLOUT
+||----||--------
+||<><>|| Please type `clout --help` for a list of commands\

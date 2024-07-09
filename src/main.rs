@@ -7,7 +7,7 @@ use clout::{
 
 fn main() {
     let command = env::args().nth(1).unwrap_or_else(|| {
-        println!("{}", text::console::WELCOME);
+        println!("{}", text::WELCOME);
         process::exit(1);
     });
 
@@ -17,7 +17,7 @@ fn main() {
 }
 
 fn run(command: String, spec: Option<String>) {
-    println!("{}", text::console::TITLE);
+    print!("{}", text::TITLE);
 
     match command.trim() {
         "add" => command_add(spec),
@@ -28,12 +28,12 @@ fn run(command: String, spec: Option<String>) {
 
         "build" => command_build(spec),
 
-        "--help" => println!("{}", text::console::HELP),
+        "--help" => println!("{}", text::HELP),
 
-        _ => println!("{}", text::console::INVALID_COMMAND),
+        _ => println!("{}", text::INVALID_COMMAND),
     }
 
-    println!("{}", text::console::ENDING);
+    println!("{}", text::ENDING);
 }
 
 fn command_run(spec: Option<String>) {
