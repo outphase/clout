@@ -29,9 +29,9 @@ Here is a list of the commands. You can access this list by running the `clout -
 | -r    | On any command that builds the project -> build ready for release      |
 | -s    | On `clout run`                         -> skip the building step       |
 
-### Special files
+### Preset files
 
-If you type one of these special filenames when using the `clout add` command, you will create a copy of a preset file. You can find preset files [here](https://github.com/outphase/clout/tree/master/template-files).
+If you type one of these special filenames when using the `clout add` command, you will create a copy of a preset file. You can find preset files [here](https://github.com/outphase/clout/tree/master/template files).
 
 | Filename       |                                                                                                                                           |
 |----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
